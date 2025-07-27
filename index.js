@@ -8,13 +8,14 @@ const app = express();
 const casesRouter = require('./routes/cases');
 const uploadRouter = require('./routes/upload');
 const shareRouter = require('./routes/share');
+const { protect } = require('./middleware/auth');
 
 app.use(cors());
 app.use(express.json());
 
 // API routes
-app.use('/api/cases', casesRouter);
-app.use('/api/upload', uploadRouter);
+app.use('/api/cases', protect, casesRouter);
+app.use('/api/upload', protect, uploadRouter);
 app.use('/api/share', shareRouter);
 
 app.get('/', (req, res) => {
